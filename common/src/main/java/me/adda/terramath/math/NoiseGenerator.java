@@ -74,7 +74,7 @@ public class NoiseGenerator {
         double size = default_size;
         double initialSize = size;
 
-        while (size >= 1) {
+        while (size >= 4) {
             value += smoothNoise((x / size), (y / size), (z / size)) * size;
             size /= 2.0;
         }
@@ -112,7 +112,7 @@ public class NoiseGenerator {
         // Offset each coordinate by the seed value
         x += seed;
         y += seed;
-        x += seed;
+        z += seed;
 
         int X = (int) Math.floor(x) & 255; // FIND UNIT CUBE THAT
         int Y = (int) Math.floor(y) & 255; // CONTAINS POINT.
