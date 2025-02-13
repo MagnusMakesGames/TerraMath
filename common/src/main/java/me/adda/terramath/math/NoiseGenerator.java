@@ -10,9 +10,6 @@ public class NoiseGenerator {
     private static int[] p;
 
     public static void init() {
-
-        seed = SeedUtils.getSeed();
-
         // Initialize the permutation array.
         p = new int[512];
         int[] permutation = new int[]{151, 160, 137, 91, 90, 15, 131, 13, 201,
@@ -44,8 +41,8 @@ public class NoiseGenerator {
 
     }
 
-    public long getSeed() {
-        return seed;
+    public static void updateSeed() {
+        seed = SeedUtils.getSeed();
     }
 
     public static double noise(double x, double y, double z, int size) {
@@ -74,7 +71,7 @@ public class NoiseGenerator {
         double size = default_size;
         double initialSize = size;
 
-        while (size >= 4) {
+        for(int o = 0; o < 3; o++) {
             value += smoothNoise((x / size), (y / size), (z / size)) * size;
             size /= 2.0;
         }

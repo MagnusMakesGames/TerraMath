@@ -9,14 +9,19 @@ import net.minecraft.server.level.ServerLevel;
 
 public class TerraMathEvents {
     public static void init() {
+        LifecycleEvent.SETUP.register(TerraMathEvents::onSetup);
         LifecycleEvent.SERVER_LEVEL_LOAD.register(TerraMathEvents::onLevelLoad);
         LifecycleEvent.SERVER_LEVEL_UNLOAD.register(TerraMathEvents::onLevelUnload);
+    }
+
+    private static void onSetup() {
+        NoiseGenerator.init();
     }
 
     private static void onLevelLoad(ServerLevel level) {
         TerrainData data = level.getDataStorage().get(TerrainData::load, TerrainData.IDENTIFIER.toString());
 
-        NoiseGenerator.init();
+        NoiseGenerator.updateSeed();
 
         if (data != null) {
             data.applyToManagers();
